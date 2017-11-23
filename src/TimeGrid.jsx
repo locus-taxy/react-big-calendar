@@ -104,7 +104,7 @@ export default class TimeGrid extends Component {
   render() {
     let {
         events, start, end, width
-      , startAccessor, endAccessor, allDayAccessor } = this.props;
+      , startAccessor, endAccessor, allDayAccessor, skipSort } = this.props;
 
     width = width || this.state.gutterWidth;
 
@@ -132,7 +132,9 @@ export default class TimeGrid extends Component {
       }
     })
 
-    allDayEvents.sort((a, b) => sortEvents(a, b, this.props))
+    if(!skipSort) {
+      allDayEvents.sort((a, b) => sortEvents(a, b, this.props))
+    }
 
     let {first, last} = endOfRange(range);
 
