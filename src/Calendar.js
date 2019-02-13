@@ -62,6 +62,12 @@ class Calendar extends React.Component {
   static propTypes = {
     localizer: PropTypes.object.isRequired,
 
+    // When the week starts, 0 or 1.
+    weekStart: PropTypes.number,
+
+    // When the work week starts, 0 or 1.
+    workWeekStart: PropTypes.number,
+
     /**
      * Props passed to main calendar `<div>`.
      *
@@ -830,6 +836,8 @@ class Calendar extends React.Component {
       formats: _1,
       messages: _2,
       culture: _3,
+      weekStart,
+      workWeekStart,
       ...props
     } = this.props
 
@@ -845,7 +853,12 @@ class Calendar extends React.Component {
     } = this.state.context
 
     let CalToolbar = components.toolbar || Toolbar
-    const label = View.title(current, { localizer, length })
+    const label = View.title(current, {
+      localizer,
+      length,
+      weekStart,
+      workWeekStart,
+    })
 
     return (
       <div
@@ -872,6 +885,8 @@ class Calendar extends React.Component {
           getNow={getNow}
           length={length}
           localizer={localizer}
+          weekStart={weekStart}
+          workWeekStart={workWeekStart}
           getters={getters}
           components={components}
           accessors={accessors}
